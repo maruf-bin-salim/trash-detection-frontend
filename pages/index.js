@@ -16,7 +16,6 @@ const Camera = () => {
                 mediaStream = stream;
             } catch (error) {
                 console.error('Error accessing webcam:', error);
-                setPrediction(error.msg);
             }
         };
 
