@@ -9,7 +9,8 @@ const Camera = () => {
 
     useEffect(() => {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            const constraints = { video: true };
+            // Specify the 'environment' facing mode for the back camera
+            const constraints = { video: { facingMode: 'environment' } };
             navigator.mediaDevices.getUserMedia(constraints)
                 .then(stream => {
                     videoRef.current.srcObject = stream;
