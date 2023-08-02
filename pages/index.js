@@ -8,16 +8,30 @@ const Camera = () => {
     let mediaStream = null;
 
     useEffect(() => {
+        const startCamera = async (facingMode) => {
+            try {
+                const constraints = { video: { facingMode: facingMode } };
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                videoRef.current.srcObject = stream;
+                mediaStream = stream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        };
+
+        const tryCameraAccess = async () => {
+            try {
+                await startCamera('environment'); // Try the back camera (environment facing mode)
+            } catch (error) {
+                // If the back camera fails, try the front camera (user facing mode)
+                await startCamera('user');
+            }
+        };
+
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            // Specify the 'environment' facing mode for the back camera
-            const constraints = { video: { facingMode: 'environment' } };
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(stream => {
-                    videoRef.current.srcObject = stream;
-                    mediaStream = stream;
-                })
-                .catch(error => console.error('Error accessing webcam:', error));
+            tryCameraAccess();
         }
+
         // Clean up the media stream when the component unmounts
         return () => {
             if (mediaStream) {
