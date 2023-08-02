@@ -106,9 +106,13 @@ const Camera = () => {
         }
 
         img {
-          margin-top: 20px;
           max-width: 100%;
           max-height: 100%;
+        }
+        
+        .preview-container img {
+          width: 70%;
+          height: 90%;
         }
 
         .snapshot-btn {
@@ -148,6 +152,10 @@ const Camera = () => {
                 width: 100%;
                 height: 50%;
             }
+            img {
+            	height: 80%;
+            }
+            
         }
             
 
