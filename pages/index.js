@@ -9,6 +9,9 @@ const Camera = () => {
 
     useEffect(() => {
         const startCamera = async (facingMode) => {
+            if(facingMode !== 'user') {
+            	facingMode = { exact: facingMode };
+            }
             try {
                 const constraints = { video: { facingMode: facingMode } };
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
