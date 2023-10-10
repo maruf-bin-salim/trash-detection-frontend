@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       // Get the raw image data from the request body
-      var buf = Buffer.from(req.body); 
+      var buf = Buffer.from(req.body, "utf-8"); 
       var base64Data = buf.toString('base64') 
       const dataUrl = 'data:image/jpeg;base64,' + base64Data; 
 
